@@ -1,0 +1,19 @@
+{
+  "name": "dork",
+  "version": "1.0.0",
+  "description": "A text-based game inspired by Zork.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "messagemedia-messages-sdk": "^1.0.3"
+  }
+}

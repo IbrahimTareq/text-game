@@ -1,0 +1,5 @@
+Welcome to DORK!
+
+Dork is a text based adventure game inspired by Zork. You enter commands to progress the game. A command is 2 word phrase consisting of a verb and an object/direction. Examples: `go east` or `open door`
+
+The first word should always be a verb and the second word an object. You can navigate around the game using North, South, East and West. Good luck!
