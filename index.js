@@ -24,8 +24,8 @@ exports.handler = (event, context, callback) => {
       var recipient = body.source_number
 
       // Use this to reset metadata
-      var message = TemplateController.intro(recipient);
-      TemplateController.sendMessage(message);
+      // var message = TemplateController.intro(recipient);
+      // TemplateController.sendMessage(message);
 
       // If the person has already won
       if (winning_condition != undefined){
