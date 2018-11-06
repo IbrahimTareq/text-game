@@ -18,7 +18,6 @@ class MessageTemplateController {
          "recipient":recipient,
          "room":room
        },
-      "callback_url":process.env.CALLBACK_URL,
       "delivery_report":false
     }
   }
@@ -29,7 +28,16 @@ class MessageTemplateController {
       "source_number":process.env.LINE,
       "destination_number":recipient,
       "metadata": {},
-      "callback_url":process.env.CALLBACK_URL,
+      "delivery_report":false
+    }
+  }
+
+  reset(recipient) {
+     return {
+      "content":"The game has been reset. Text in 'game' when you are ready to play again.",
+      "source_number":process.env.LINE,
+      "destination_number":recipient,
+      "metadata": {},
       "delivery_report":false
     }
   }
@@ -43,7 +51,6 @@ class MessageTemplateController {
         "room":room,
         "recipient":recipient
       },
-      "callback_url":process.env.CALLBACK_URL,
       "delivery_report":false
     }
   }
@@ -56,7 +63,6 @@ class MessageTemplateController {
       "metadata": {
         "won": true
       },
-      "callback_url":process.env.CALLBACK_URL,
       "delivery_report":false
     }
   }
@@ -69,7 +75,6 @@ class MessageTemplateController {
       "metadata": {
         "won": true
       },
-      "callback_url":process.env.CALLBACK_URL,
       "delivery_report":false
     }
   }

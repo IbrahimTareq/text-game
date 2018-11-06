@@ -13,9 +13,9 @@
       "contextualHelp": "There might be something in the mailbox..",
       "actions": null,
       "exits": {
-        "north": "room2",
-        "east": "nothing",
-        "south": "room5",
+        "north": "room4",
+        "east": "room3",
+        "south": "room2",
         "west": "nothing"
       },
       "objects": {
@@ -27,85 +27,75 @@
     "room2": {
       "alias": "Fountain",
       "description": "You are near the fountain, in front of a huge mansion. There are old engravings on the walls here.",
-      "contextualHelp": "",
+      "contextualHelp": "What could the engravings mean?",
       "actions": null,
       "exits": {
-        "north": "room6",
-        "east": "room3",
-        "south": "room1",
+        "north": "room1",
+        "east": "room6",
+        "south": "room5",
         "west": "nothing"
+      },
+      "objects": {
+        "engravings": "engravings"
       }
     }
   }, {
     "room3": {
       "alias": "Temple",
       "description": "You are standing in front of a large temple. On the wall is an ancient inscription, probably a prayer in a long-forgotten language.",
-      "contextualHelp": "",
+      "contextualHelp": "Try heading South and see where that leads you.",
       "actions": null,
       "exits": {
-        "north": "room3",
-        "east": "room5",
-        "south": "room4",
-        "west": "room2"
-      }
-    }
-  }, {
-    "room4": {
-      "alias": "Forest",
-      "description": "Tall trees are all around you. A speck of light is coming from the south.",
-      "contextualHelp": "Run forest run!",
-      "actions": null,
-      "exits": {
-        "north": "room3",
+        "north": "nothing",
         "east": "nothing",
-        "south": "room7",
+        "south": "room6",
         "west": "room1"
       }
     }
   }, {
-    "room5": {
-      "alias": "Forest",
-      "description": "This is a dimly lit forest, with large trees all around.",
-      "contextualHelp": "Run forest run!",
-      "actions": null,
-      "exits": {
-        "north": "room1",
-        "east": "room7",
-        "south": "room4",
-        "west": "room8"
-      }
-    }
-  }, {
-    "room6": {
+    "room4": {
       "alias": "Mansion",
       "description": "You have reached the entrance of the huge mansion. The door is locked and all the windows in the front are bolted.",
-      "contextualHelp": "",
+      "contextualHelp": "Seems like a deadend..",
       "actions": {
         "open door": "The door is shut.",
         "open windows" : "The windows are bolted."
       },
       "exits": {
         "north": "nothing",
-        "east": "room7",
-        "south": "room2",
+        "east": "nothing",
+        "south": "room1",
         "west": "nothing"
+      }
+    }
+  }, {
+    "room5": {
+      "alias": "Forest",
+      "description": "This is a dimly lit forest, with large trees all around. A speck of light is coming from the west.",
+      "contextualHelp": "Let the lights guide you.",
+      "actions": null,
+      "exits": {
+        "north": "room2",
+        "east": "nothing",
+        "south": "nothing",
+        "west": "room7"
+      }
+    }
+  }, {
+    "room6": {
+      "alias": "River",
+      "description": "You are standing on the banks of a fast flowing river. Along the river are the White Cliffs which seem to form giant walls stretching from north to south along the shores of the river as it winds its way downstream.",
+      "contextualHelp": "You're one move away from winning.",
+      "actions": null,
+      "exits": {
+        "north": "room3",
+        "east": "room7",
+        "south": "nothing",
+        "west": "room2"
       }
     }
   }, {
     "room7": {
-      "alias": "River",
-      "description": "You are standing on the banks of a fast flowing river. Along the river are the White Cliffs which seem to form giant walls stretching from north to south along the shores of the river as it winds its way downstream.",
-      "contextualHelp": "",
-      "actions": null,
-      "exits": {
-        "north": "room4",
-        "east": "room8",
-        "south": "room7",
-        "west": "nothing"
-      }
-    }
-  }, {
-    "room8": {
       "alias": "Exit gate",
       "description": "You are at the exit gates, you made it! Thanks for playing Dork 😄🏆",
       "contextualHelp": "",

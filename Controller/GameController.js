@@ -1,5 +1,5 @@
 const fs = require('fs');
-const TemplateController = require('./Controller/MessageTemplateController');
+const TemplateController = require('./MessageTemplateController');
 const sdk = require('messagemedia-messages-sdk');
 
 const messages_controller = sdk.MessagesController;
@@ -9,7 +9,7 @@ class GameController {
   constructor() {
     var currentRoom = "";
     var recipient = "";
-    var keyWords = ['help', 'open', 'read'];
+    var keyWords = ['help', 'open', 'read', 'reset'];
     this.keyWords = keyWords;
     this.currentRoom = currentRoom;
     this.recipient = recipient;
@@ -27,9 +27,13 @@ class GameController {
     self.validateResponse(null, self.rooms[0]);
   }
 
-  help() {
+  resetGame(){
+    var message = TemplateController.reset(self.recipient);
+    TemplateController.sendMessage(message);
+  }
+
+  help(helpMessage) {
     var self = this;
-    var helpMessage = self.initialMsg();
     var message = TemplateController.reply(self.recipient, helpMessage, self.currentRoom.name);
     TemplateController.sendMessage(message);
   }
@@ -80,7 +84,6 @@ class GameController {
     delete _r.exits;
     delete _r.actions;
     delete _r.objects;
-    delete _r.enemies;
 
     // Set currentRoom as the _r object
     self.currentRoom = _r;
@@ -116,7 +119,6 @@ class GameController {
       if (filterWords.indexOf(response) >= 0) {
         var msgs = [
           'Jeez..',
-          'Really now?',
           '💩'
         ];
         //console.log(msgs[Math.ceil(Math.random() * msgs.length) - 1], '\n');
@@ -125,7 +127,7 @@ class GameController {
         TemplateController.sendMessage(message);
       } else {
         //console.log(errMessage);
-        var errMessage = 'That is not a valid command. Enter a verb and an action like "go north". Text `help` for more info';
+        var errMessage = 'That is not a valid command. Enter a verb and an action like "go north". Text `help` for a hint.';
         var message = TemplateController.reply(self.recipient, errMessage, self.currentRoom.name);
         TemplateController.sendMessage(message);
       }
@@ -135,7 +137,9 @@ class GameController {
   processKeyword(response, room) {
     var self = this;
     if (response == 'help') {
-      self.help();
+      self.help(self.currentRoom.contextualHelp);
+    } else if (response == 'reset') {
+      self.reset();
     } else if (response.split(" ")[0] == 'open' || response.split(" ")[0] == 'Open') {
       self.open(room, response.split(" ")[1]);
     } else if (response.split(" ")[0] == 'read' || response.split(" ")[0] == 'Read') {
@@ -143,7 +147,7 @@ class GameController {
     } else {
       if (response.split(" ").length < 1 || response.split(" ").length > 1) {
         //console.log(errMessage);
-        var errMessage = 'Enter a verb and a action. Enter `help` for more info';
+        var errMessage = 'Enter a verb and a action. Text `help` a hint.';
         var message = TemplateController.reply(self.recipient, errMessage, self.currentRoom.name);
         TemplateController.sendMessage(message);
       }
@@ -184,14 +188,20 @@ class GameController {
 
   open(room, item) {
     var self = this;
-    if (room == "room1" && item == "mailbox") {
-      //console.log('Opening the small mailbox reveals a leaflet.');
-      var infoMessage = 'Opening the small mailbox reveals a leaflet.';
-      var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
-      TemplateController.sendMessage(message);
+    if (item == "mailbox"){
+      if (room == "room1") {
+        //console.log('Opening the small mailbox reveals a leaflet.');
+        var infoMessage = 'Opening the small mailbox reveals a leaflet.';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      } else {
+        //console.log('You cannot do that.');
+        var infoMessage = 'There is no mailbox over here.';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      }
     } else {
-      //console.log('You cannot do that.');
-      var infoMessage = 'There is no mailbox over here.';
+      var infoMessage = 'You cannot do that.';
       var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
       TemplateController.sendMessage(message);
     }
@@ -199,14 +209,32 @@ class GameController {
 
   read(room, item) {
     var self = this;
-    if (room == "room1" && item == "leaflet") {
-      //console.log('WELCOME to DORK!/n/nDork is a text-based adventure game inspired by Zork. The aim of the game is to find the exit gate and leave the maze.');
-      var infoMessage = 'WELCOME to DORK! Dork is a text-based adventure game inspired by Zork. The aim of the game is to find the exit gate and leave the maze.';
-      var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
-      TemplateController.sendMessage(message);
+    if (item == "leaflet") {
+      if (room == "room1") {
+        //console.log('WELCOME to DORK!/n/nDork is a text-based adventure game inspired by Zork. The aim of the game is to find the exit gate and leave the maze.');
+        var infoMessage = 'WELCOME to DORK! Dork is a text-based adventure game inspired by Zork. The aim of the game is to find the exit gate and leave the maze.';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      } else {
+        //console.log('You cannot do that.');
+        var infoMessage = 'There is no leaflet over here.';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      }
+    } else if (item == "engravings" || item == "engraving") {
+      if (room == "room2") {
+        //console.log('WELCOME to DORK!/n/nDork is a text-based adventure game inspired by Zork. The aim of the game is to find the exit gate and leave the maze.');
+        var infoMessage = '01000101 01111000 01101001 01110100 00100000 01110110 01101001 01100001 00100000 01110100 01101000 01100101 00100000 01100110 01101111 01110010 01100101 01110011 01110100';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      } else {
+        //console.log('You cannot do that.');
+        var infoMessage = 'There are no engravings over here.';
+        var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
+        TemplateController.sendMessage(message);
+      }
     } else {
-      //console.log('You cannot do that.');
-      var infoMessage = 'There is no leaflet over here.';
+      var infoMessage = 'You cannot do that.';
       var message = TemplateController.reply(self.recipient, infoMessage, self.currentRoom.name);
       TemplateController.sendMessage(message);
     }
